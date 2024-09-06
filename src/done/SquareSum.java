@@ -2,6 +2,10 @@ package done;
 
 import java.util.Arrays;
 
+/*
+ * Complete the square sum function so that it squares each number passed into it and then sums the results together.
+ */
+
 public class SquareSum {
   public static void main(String[] args) {
     int[] array = {4, -3, 5};
