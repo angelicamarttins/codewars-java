@@ -1,8 +1,5 @@
 package done;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 public class NoBoringZeros {
 
   public static void main(String[] args) {
@@ -13,17 +10,11 @@ public class NoBoringZeros {
   }
 
   private static int noBoringZeros(int number) {
-    List<String> list = Arrays.asList(String.valueOf(number).split(""));
-    Collections.reverse(list);
+    while (number % 10 == 0) {
+      number /= 10;
+    }
 
-    list.forEach(el -> {
-      if (Objects.equals(el, "0")) {
-        list.removeFirst();
-      }
-    });
-
-    System.out.println(list);
-    return Integer.parseInt(String.format("%.0f", number * 0.0001));
+    return number;
   }
 
 }
