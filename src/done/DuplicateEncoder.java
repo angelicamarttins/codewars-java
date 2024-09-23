@@ -37,3 +37,9 @@ public class DuplicateEncoder {
     return newString;
   }
 }
+
+/*
+* Criar outro map, dentro do map, colocando a quantidade de aparições e as posições de cada aparição
+* Daí, buscar pela chave do primeiro map e dentro do segundo map, buscar pela letra e alterar nas
+* posições em que aparece a letra na string original adicionando ( ou )
+*/
