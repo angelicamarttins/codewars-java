@@ -5,42 +5,38 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class CountIPAddresses {
 
+  /*
+    Implement a function that receives two IPv4 addresses, and returns the number of addresses
+    between them (including the first one, excluding the last one).
+
+     All inputs will be valid IPv4 addresses in the form of strings. The last address will
+     always be greater than the first one.
+
+     Examples
+     With input "10.0.0.0", "10.0.0.50"  => return   50
+     With input "10.0.0.0", "10.0.1.0"   => return  256
+     With input "20.0.0.10", "20.0.1.0"  => return  246
+  */
+
   public static void main(String[] args) {
+    System.out.println(ipsBetween("10.0.0.0", "10.0.0.50"));
+    System.out.println(ipsBetween("10.0.0.0", "10.0.1.0"));
     System.out.println(ipsBetween("20.0.0.10", "20.0.1.0"));
+    System.out.println(ipsBetween("150.0.0.0", "150.0.0.1"));
+    System.out.println(ipsBetween("0.0.0.0", "255.255.255.255"));
   }
 
   public static long ipsBetween(String start, String end) {
-    long firstIpAddress = calculateIpAddress(start);
-    long secondIpAddress = calculateIpAddress(end);
+    long startIpAddress = calculateIpAddress(start);
+    long endIpAddress = calculateIpAddress(end);
 
-//    System.out.println(firstIpAddress - secondIpAddress);
-
-    return -1;
+    return endIpAddress - startIpAddress;
   }
 
   private static long calculateIpAddress(String ipAddress) {
-    String[] splittedAddress = ipAddress.split("[/.]");
-    AtomicReference<Double> octetPosition = new AtomicReference<>((double) 3);
-
-    var a = Arrays.stream(splittedAddress).mapToInt(octet -> {
-          double doubledOctet = Double.parseDouble(octet);
-          System.out.println(doubledOctet * Math.pow(256, octetPosition.get()));
-          octetPosition.updateAndGet(v -> v - 1);
-          return (int) (doubledOctet * Math.pow(256, octetPosition.get()));
-        })
-        .reduce(Integer::sum);
-
-//    System.out.println(Arrays.toString(a));
-    System.out.println(a);
-    return 1L;
+    return Arrays.stream(ipAddress.split("[.]"))
+        .mapToLong(Integer::parseInt)
+        .reduce(0L, (total, octet) -> total * 256 + octet);
   }
 
 }
-
-/*
- * Separa a string e transforma em array a partir dos pontos
- * Passa em cada octeto realizando o cálculo
- * Realiza a somatória da conversão dos octetos
- * Retorna o cálculo
- * Subtrai os valores dos IPs e retorna
- */
